@@ -270,7 +270,7 @@ defimpl AshTypst.Code, for: Atom do
 end
 
 defimpl AshTypst.Code, for: Decimal do
-  def encode(decimal, _context), do: "decimal(\"#{decimal}\")"
+  def encode(decimal, _context), do: "decimal(\"#{Decimal.to_string(decimal, :normal)}\")"
 end
 
 defimpl AshTypst.Code, for: Ash.NotLoaded do

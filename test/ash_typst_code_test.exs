@@ -100,6 +100,11 @@ defmodule AshTypst.CodeTest do
     test "encodes via the string constructor to preserve precision" do
       assert AshTypst.Code.encode(Decimal.new("3.14"), %{}) == "decimal(\"3.14\")"
     end
+
+    test "writes plain digits, never scientific notation, which Typst's decimal refuses" do
+      assert AshTypst.Code.encode(Decimal.new("0E-8"), %{}) == "decimal(\"0.00000000\")"
+      assert AshTypst.Code.encode(Decimal.new("1E+3"), %{}) == "decimal(\"1000\")"
+    end
   end
 
   describe "generated code compiles under the bundled Typst" do
